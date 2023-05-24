@@ -19,10 +19,11 @@
             <h3 >QR Code Generator</h3>
         </div>
         <div class="canvas-container m-auto border border-secondary-subtle mb-3 d-flex justify-content-center align-items-center mt-4">
-            <canvas id="qr" style="margin: 0 auto; display:block; text-align: center"></canvas>
+            <canvas id="qr"></canvas>
         </div>
-        <div class="container d-flex justify-content-center align-items-center">
+        <div class="container d-flex justify-content-center align-items-center text-center">
             <form>
+                <label for="value" class="form-label">Enter your desired value:</label>
                 <input type="text" id="value" class="form-control" value="" />
                 <button type="submit" class="btn btn-outline-success mt-2" id="generateBtn">Generate</button>
                 <button id="download-btn" class="btn btn-outline-primary mt-2">Download QR Code</button>
@@ -45,7 +46,7 @@
             level: 'L',
             mime: 'image/png',
             size: 300,
-            padding: 0
+            padding: 3
         });
         qr.toDataURL('image/png');
     });
