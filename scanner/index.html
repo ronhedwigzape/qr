@@ -28,7 +28,7 @@
         <div class="d-flex justify-content-center">
             <ul class="nav nav-underline justify-content-center">
                 <li class="nav-item">
-                    <a class="nav-link text-secondary-emphasis" href="../generator/index.html">QR Code Generator</a>
+                    <a class="nav-link text-secondary" href="../generator/index.html">QR Code Generator</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="../scanner/index.html">QR Code Scanner</a>
@@ -41,7 +41,10 @@
             }" id="reader"></div>
         </div>
         <div class="container d-flex justify-content-center align-items-center text-center">
-
+            <div>
+                <h6>Decoded Result:</h6>
+                <p id="result"></p>
+            </div>
         </div>
     </div>
 </div>
@@ -55,7 +58,7 @@
         console.log(`Scan result: ${decodedText}`, decodedResult);
         // ...
 
-        const result =
+        document.getElementById('result').innerHTML = decodedResult.decodedText;
         html5QrcodeScanner.clear();
         // ^ this will stop the scanner (video feed) and clear the scan area.
     }
