@@ -1,0 +1,16 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.centered-container {
+    margin: auto;
+    height: 100vh;
+}
+
+.canvas-container {
+    margin: auto;
+    height: 550px;
+    width:  550px;
+    border: 1px solid black;
+}
