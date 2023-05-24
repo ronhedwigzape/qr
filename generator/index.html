@@ -10,13 +10,34 @@
             height: 320px;
             width: 320px;
         }
+
+        @media (max-width: 991px) {
+            .canvas-container {
+                height: 280px;
+                width: 280px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .canvas-container {
+                height: 240px;
+                width: 240px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .canvas-container {
+                height: 200px;
+                width: 200px;
+            }
+        }
     </style>
 </head>
 <body>
 <div class="container" style="margin-top: 4rem;">
-    <div class="shadow-lg p-5 border rounded-4 w-50" style="display: block; margin-right: auto; margin-left: auto;">
+    <div class="shadow-lg p-5 border rounded-4 w-75" style="display: block; margin-right: auto; margin-left: auto;">
         <div class="d-flex justify-content-center">
-            <ul class="nav nav-underline">
+            <ul class="nav nav-underline justify-content-center">
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="../generator/index.html">QR Code Generator</a>
                 </li>
@@ -40,8 +61,28 @@
 </div>
 <script src="../assets/qrious/qrious.min.js"></script>
 <script>
+
     document.getElementById('generateBtn').addEventListener('click', function (e) {
         e.preventDefault();
+        const handleCanvasSize = (e) => {
+            let canvasSize = 300;
+            if (e.matches) {
+                if (e.media === "(max-width: 991px)") {
+                    canvasSize = 260;
+                } else if (e.media === "(max-width: 768px)") {
+                    canvasSize = 220;
+                }
+                else if (e.media === "(max-width: 500px)") {
+                    canvasSize = 180;
+                }
+            }
+            return canvasSize;
+        }
+        const mediaQuery1 = window.matchMedia("(max-width: 991px)");
+        const mediaQuery2 = window.matchMedia("(max-width: 768px)");
+        const mediaQuery3 = window.matchMedia("(max-width: 500px)");
+        const size = handleCanvasSize(mediaQuery1);
+
         const value = document.getElementById('value').value;
         const qr = new QRious({
             element: document.getElementById('qr'),
@@ -52,21 +93,42 @@
             foregroundAlpha: 1,
             level: 'L',
             mime: 'image/png',
-            size: 300,
+            size: size,
             padding: 3
         });
+
+        mediaQuery1.addListener(() => {
+            qr.set({
+                size: handleCanvasSize(mediaQuery1)
+            });
+        });
+
+        mediaQuery2.addListener(() => {
+            qr.set({
+                size: handleCanvasSize(mediaQuery2)
+            });
+        });
+
+        mediaQuery3.addListener(() => {
+            qr.set({
+                size: handleCanvasSize(mediaQuery3)
+            });
+        });
+
         qr.toDataURL('image/png');
     });
 
     const downloadQR = (e) => {
         e.preventDefault();
+
+        const value = document.getElementById('value').value;
         const canvas = document.getElementById("qr");
         const pngUrl = canvas
             .toDataURL("image/png")
             .replace("image/png", "image/octet-stream");
         let downloadLink = document.createElement("a");
         downloadLink.href = pngUrl;
-        downloadLink.download = "qr-code.png";
+        downloadLink.download = `qr-code-${value}.png`;
         document.body.appendChild(downloadLink);
         downloadLink.click();
         document.body.removeChild(downloadLink);
