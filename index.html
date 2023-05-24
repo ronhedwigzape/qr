@@ -34,8 +34,8 @@
 <script>
     document.getElementById('generateBtn').addEventListener('click', function(e) {
         e.preventDefault();
-        value = document.getElementById('value').value;
-        qr = new QRious({
+        const value = document.getElementById('value').value;
+        const qr = new QRious({
             element: document.getElementById('qr'),
             value: value,
             background: 'white',
